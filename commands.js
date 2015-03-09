@@ -6,12 +6,15 @@ var querystring = require("querystring");
 
 var file;
 
-module.exports = function(bot, slack){
+module.exports = function(bot, slack) {
+  if (!fs.exists("ideas.dat", "")) {
+    fs.writeFileSync("ideas.dat");
+  }
   file = fs.readFileSync("ideas.dat");
 
   bot.addCommand("ideabot help", "Show this help.", function(msg, args, channel, username) {
     var message = "I'm ideabot, the Saints Robotics Spontaneous Self-Operating System. Here's what I can do:";
-    for(var i in bot.commands){
+    for(var i in bot.commands) {
       var command = bot.commands[i];
       message += "\n" + command.trigger + " - " + command.help;
     }
