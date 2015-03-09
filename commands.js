@@ -7,7 +7,7 @@ var querystring = require("querystring");
 var file;
 
 module.exports = function(bot, slack) {
-  if (!fs.exists("ideas.dat", "")) {
+  if (!fs.existsSync("ideas.dat")) {
     fs.writeFileSync("ideas.dat");
   }
   file = fs.readFileSync("ideas.dat");
