@@ -18,7 +18,8 @@ module.exports = function(bot, slack){
   });
 
   bot.addCommand("ideabot add", "Adds a new idea.", function(msg, args, channel, username) {
-    bot.sendMessage("Recieved idea: " + args, channel);
+    var str = args.join(1);
+    bot.sendMessage("Recieved idea: " + str, channel);
   });
 
   /*
