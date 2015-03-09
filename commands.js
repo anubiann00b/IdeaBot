@@ -17,7 +17,8 @@ module.exports = function(bot, slack){
     bot.sendMessage("Ready.", channel);
   });
 
-  bot.addCommand("ideabot add", "Ready.", function(msg, args, channel, username) {
+  bot.addCommand("ideabot add", "Adds a new idea.", function(msg, args, channel, username) {
+    console.log("Args: " + args);
     bot.sendMessage(args, channel);
   });
 
