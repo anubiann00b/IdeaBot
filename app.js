@@ -9,7 +9,6 @@ var slack = new Slack(process.env.SLACK_KEY, true, true);
 var slackReady = false;
 
 slack.on('open', function() {
-
   var channels = [],
   groups = [],
   unreads = slack.getUnreadCount(),

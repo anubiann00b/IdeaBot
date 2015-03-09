@@ -1,9 +1,14 @@
+var fs = require("fs");
 var url = require("url");
 var http = require("http");
 var https = require("https");
 var querystring = require("querystring");
 
+var file;
+
 module.exports = function(bot, slack){
+  file = fs.readFileSync("ideas.dat");
+
   bot.addCommand("ideabot help", "Show this help.", function(msg, args, channel, username) {
     var message = "I'm ideabot, the Saints Robotics Spontaneous Self-Operating System. Here's what I can do:";
     for(var i in bot.commands){
@@ -19,7 +24,16 @@ module.exports = function(bot, slack){
 
   bot.addCommand("ideabot add", "Adds a new idea.", function(msg, args, channel, username) {
     var str = args.join(" ");
-    bot.sendMessage("Recieved idea: " + str, channel);
+    bot.sendMessage("Added idea: " + str, channel);
+    fs.appendFile('ideas.dat', str, function (err) {
+      if (err) throw err;
+      console.log('Data appended: ' + str);
+    });
+  });
+
+  bot.addCommand("ideabot show", "Shows existing ideas.", function(msg, args, channel, username) {
+    file = fs.readFileSync("ideas.dat");
+    bot.sendMessage(file, channel);
   });
 
   /*
