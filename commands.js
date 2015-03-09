@@ -32,7 +32,7 @@ module.exports = function(bot, slack){
   });
 
   /*
-  bot.addTrigger(/(regional manager|rm|evangelist) for ([A-z ]+)/gi, function(msg, matches, channel, username){
+  bot.addTrigger(/(regional manager|rm|evangelist) for ([A-z ]+)/gi, function(msg, matches, channel, username) {
     if(matches[2]){
       matches[2] = matches[2].replace(/CodeDay/gi, "").trim();
       switch(matches[1].toLowerCase()){
