@@ -1,0 +1,9 @@
+{
+  "name": "ideabot",
+  "version": "1.0.0",
+  "description": "Idea Recording Bot",
+  "dependencies": {
+    "express": "~4.10.8",
+    "slack-client": "~1.2.2"
+  }
+}
