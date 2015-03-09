@@ -4,11 +4,7 @@
 
 var Slack = require('slack-client');
 
-try{
-  var config = require("./config");
-}catch(e){
-  var config = JSON.parse(process.env.BOT_CONFIG);
-}
+var slack = new Slack(process.env.SLACK_KEY, true, true);
 
 var bot = require("./bot")();
 
@@ -41,7 +37,6 @@ slack.on('error', function(error) {
 });
 
 slack.on('message', function(message) {
-
   var type = message.type,
   user = slack.getUserByID(message.user),
   time = message.ts,
@@ -55,7 +50,7 @@ slack.on('message', function(message) {
 
 slack.login();
 
-bot.on('handleError', function(err, channel, command){
+bot.on('handleError', function(err, channel, command) {
   bot.sendMessage("You broke something!\nError in command `" + command + "`:\n```" + err.stack + "```", channel);
 });
 
@@ -63,28 +58,8 @@ require("./commands")(bot, slack);
 
 var express = require('express')();
 
-express.get('/', function(req, res){
+express.get('/', function(req, res) {
   res.sendfile('index.html');
-});
-
-express.get('/hook', function(req, res){
-  if(req.query.secret === config.HOOK_SECRET){
-    if(slackReady){
-      bot.sendMessage("@group Guess what? " + req.query.teamName + " has answered all questions on the CTF! http://ctf.codeday.org/admin/teams/" + req.query.id, "G03L1QH1Z");
-    }
-    res.send({yep: "yep", success: "true"});
-  }else{
-    res.send("I was going to put a redirect here to meatspin or something since you're really not supposed to be here but I'm nice and I won't okay just leave.");
-  }
-});
-
-express.get('/command', function(req, res){
-  if(req.query.secret === config.HOOK_SECRET){
-    eval(req.query.command);
-    res.send({yep: "yep", success: "true"});
-  }else{
-    res.send("I was going to put a redirect here to meatspin or something since you're really not supposed to be here but I'm nice and I won't okay just leave.");
-  }
 });
 
 var server = express.listen(process.env.PORT || 1337);

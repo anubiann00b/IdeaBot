@@ -3,16 +3,6 @@ var http = require("http");
 var https = require("https");
 var querystring = require("querystring");
 
-var Cleverbot = require("./cleverbot");
-var cleverbot = new Cleverbot();
-
-var countdown = {
-  channel: "C03QGP7PW",
-  message: null,
-  interval: null,
-  js: require("./lib/countdown.js")
-};
-
 module.exports = function(bot, slack){
   bot.addCommand("ideabot help", "Show this help.", function(msg, args, channel, username) {
     var message = "I'm ideabot, the Saints Robotics Spontaneous Self-Operating System. Here's what I can do:";
