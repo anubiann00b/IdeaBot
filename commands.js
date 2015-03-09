@@ -35,7 +35,7 @@ module.exports = function(bot, slack) {
   });
 
   bot.addCommand("ideabot show", "Shows existing ideas.", function(msg, args, channel, username) {
-    file = fs.readFileSync("ideas.dat");
+    var file = fs.readFileSync("ideas.dat", "utf8");
     bot.sendMessage(file, channel);
   });
 
