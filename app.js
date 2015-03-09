@@ -3,12 +3,9 @@
 // });
 
 var Slack = require('slack-client');
-
-var slack = new Slack(process.env.SLACK_KEY, true, true);
-
 var bot = require("./bot")();
 
-var slack = new Slack(config.SLACK_KEY, true, true);
+var slack = new Slack(process.env.SLACK_KEY, true, true);
 var slackReady = false;
 
 slack.on('open', function() {
