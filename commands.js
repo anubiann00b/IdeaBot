@@ -13,7 +13,7 @@ module.exports = function(bot, slack) {
   file = fs.readFileSync("ideas.dat");
 
   bot.addCommand("ideabot help", "Show this help.", function(msg, args, channel, username) {
-    var message = "I'm ideabot, the Saints Robotics Spontaneous Self-Operating System. Here's what I can do:";
+    var message = "I'm ideabot, a bot used to record cool ideas. Here's what I can do:";
     for(var i in bot.commands) {
       var command = bot.commands[i];
       message += "\n" + command.trigger + " - " + command.help;
@@ -28,7 +28,7 @@ module.exports = function(bot, slack) {
   bot.addCommand("ideabot add", "Adds a new idea.", function(msg, args, channel, username) {
     var str = args.join(" ");
     bot.sendMessage("Added idea: " + str, channel);
-    fs.appendFile('ideas.dat', str, function (err) {
+    fs.appendFile('ideas.dat', str + '\n', function (err) {
       if (err) throw err;
       console.log('Data appended: ' + str);
     });
@@ -39,26 +39,7 @@ module.exports = function(bot, slack) {
     bot.sendMessage(file, channel);
   });
 
-  /*
-  bot.addTrigger(/(regional manager|rm|evangelist) for ([A-z ]+)/gi, function(msg, matches, channel, username) {
-    if(matches[2]){
-      matches[2] = matches[2].replace(/CodeDay/gi, "").trim();
-      switch(matches[1].toLowerCase()){
-        case "regional manager":
-          getRegionalManager(msg, matches[2].split(" "), channel, username, bot);
-          break;
-        case "rm":
-          getRegionalManager(msg, matches[2].split(" "), channel, username, bot);
-          break;
-        case "evangelist":
-          getEvangelist(msg, matches[2].split(" "), channel, username, bot);
-          break;
-      }
-    }else{
-      bot.sendMessage("To search for an Evangelist/RM, use either `dozer rm [region]` or `dozer evangelist [region]`.", channel);
-    }
-  });
-  */
+  // Add a way to remove a line, number lines to be removed, blockquote ideas.
 
   bot.on('unknownResponse', function(msg, channel, username, extra) {
     // on unknown call
